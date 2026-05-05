@@ -97,36 +97,47 @@ for char in demo_string:
 print("το string  κωδικοποιείται μεταξύ (",sinolo_arhi,",",sinolo_telos,")")#εβαλα κάτι τιμές , και βγαζει ωραία αποτελεσματα μένει να δούμε άμα μπορω να τα αποκωδικοποιήσω
 #Έστω οτι τώρα κάνω την decoded  συνάρτηση 
 #βασικά δεν έχω τελείωσει με το encoding ακόμα 
+#exit()
 def binary_searcher(start_range,end_range,starting_value,final_value):
     print("start_range",start_range)
     print("end_range",end_range)
     print("το",(start_range+end_range)/2,"ειναι μεγαλύτερο από το ",final_value)
+
     if (start_range+end_range)/2>starting_value and (start_range+end_range)/2<final_value:#start_range>starting_value and end_range<final_value νιωθω οτι αυτό έχει merit αλλα δεν βάζω το χέρι μου στην φωτία 
         print("TELEIOSAAAAAAAAA")
         return -1
-        pass
-    elif (start_range+end_range)/2>final_value:
-        return 1
-    elif (start_range+end_range)/2<start_range:
+    elif final_value<(start_range+end_range)/2:
+        print("το",(start_range+end_range)/2,"ειναι μεγαλύτερο από το ",final_value)
         return 0
+    elif start_range>(start_range+end_range)/2:
+        print("το",(start_range+end_range)/2,"ειναι μικροτερο  από το ",final_value)
+        return 1
 def binary_encoder(starting_value,final_value):
 
     lista_pou_kouvalaei_to_binary=[]
     start_range=0
     end_range=1 
+    flag=2
     
-    flag=binary_searcher(start_range,end_range,starting_value,final_value)
     while(flag!=-1):
        # print(flag)
-        breakpoint
+        #breakpoint()
+        print(flag)
+        flag=binary_searcher(start_range,end_range,starting_value,final_value)
         lista_pou_kouvalaei_to_binary.append(flag)
         middle=(start_range+end_range)/2
+       # breakpoint()
         if flag==1:
+            
             start_range=middle
-            flag=binary_searcher(start_range,end_range,starting_value,final_value)
+            #breakpoint()
+           # flag=binary_searcher(start_range,end_range,starting_value,final_value)
         elif flag==0:
-            end_rangerange=middle
-            flag=binary_searcher(start_range,end_range,starting_value,final_value)
+           # breakpoint()
+            end_range=middle
+            
+            
+           #flag=binary_searcher(start_range,end_range,starting_value,final_value)
     
     return lista_pou_kouvalaei_to_binary       
 
