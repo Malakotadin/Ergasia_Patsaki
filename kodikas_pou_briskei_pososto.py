@@ -1,3 +1,4 @@
+import time
 f = open('/home/meow/pytohn_codes/ergasia_patsaki/ff6.jpg','rb')
 bin = f.read()
 f.close()
@@ -59,7 +60,7 @@ for i in range(0,len(lista_sinolon)):
         continue
     lista_sinolon[i]=lista_sinolon[i]+lista_sinolon[i-1]
 #εδω πέρα αλλά και γενικότερα η υλοποίηση σηκώνει πολύ optimization
-print(lista_sinolon)
+print(lista_sinolon)                     
 def letter_to_be_encoded(lista_sinolon,gramma):
     thessi_grammatos=0
     for i in range(0,len(lista_xarakthra)):
@@ -85,8 +86,55 @@ def letter_to_be_encoded(lista_sinolon,gramma):
     print("ο χαρακτήρας ",gramma,"βρισκεται μεταξτων τιμών ",temp_epistrofhs1,"kai",lista_sinolon[thessi_grammatos])
     return kainourgia_lista_sinolon,temp_epistrofhs1,lista_sinolon[thessi_grammatos]
 
-letter_to_be_encoded(lista_sinolon,"f")
-            
+#letter_to_be_encoded(lista_sinolon,"f")
+#παμε να χτίσουμε την συναρτησούλα μας και ίσως να αρχίσουμε να δουλεύουμε μερικές βελτισοτποιήσεις γιατι ο υπολογιστης μου είναι αργος
+#εστω string acab
+demo_string="acab"
+for char in demo_string:
+    lista_sinolon,sinolo_arhi,sinolo_telos=letter_to_be_encoded(lista_sinolon,char)#για παραδειγμά οι δύο βοηθηθτικες μεταβλητές στα σύνολα , δεν χρείαζεται να καταχωρούνται κάθε φορά (ίσα ίσα καλύτερα να βάλω να μην καταχωρουνται τόσες φορές)
+
+
+print("το string  κωδικοποιείται μεταξύ (",sinolo_arhi,",",sinolo_telos,")")#εβαλα κάτι τιμές , και βγαζει ωραία αποτελεσματα μένει να δούμε άμα μπορω να τα αποκωδικοποιήσω
+#Έστω οτι τώρα κάνω την decoded  συνάρτηση 
+#βασικά δεν έχω τελείωσει με το encoding ακόμα 
+def binary_searcher(start_range,end_range,starting_value,final_value):
+    print("start_range",start_range)
+    print("end_range",end_range)
+    print("το",(start_range+end_range)/2,"ειναι μεγαλύτερο από το ",final_value)
+    if (start_range+end_range)/2>starting_value and (start_range+end_range)/2<final_value:#start_range>starting_value and end_range<final_value νιωθω οτι αυτό έχει merit αλλα δεν βάζω το χέρι μου στην φωτία 
+        print("TELEIOSAAAAAAAAA")
+        return -1
+        pass
+    elif (start_range+end_range)/2>final_value:
+        return 1
+    elif (start_range+end_range)/2<start_range:
+        return 0
+def binary_encoder(starting_value,final_value):
+
+    lista_pou_kouvalaei_to_binary=[]
+    start_range=0
+    end_range=1 
+    
+    flag=binary_searcher(start_range,end_range,starting_value,final_value)
+    while(flag!=-1):
+       # print(flag)
+        breakpoint
+        lista_pou_kouvalaei_to_binary.append(flag)
+        middle=(start_range+end_range)/2
+        if flag==1:
+            start_range=middle
+            flag=binary_searcher(start_range,end_range,starting_value,final_value)
+        elif flag==0:
+            end_rangerange=middle
+            flag=binary_searcher(start_range,end_range,starting_value,final_value)
+    
+    return lista_pou_kouvalaei_to_binary       
+
+
+print(binary_encoder(sinolo_arhi,sinolo_telos))
+    
+    
+
 
 
 #counter=0
