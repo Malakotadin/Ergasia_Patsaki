@@ -101,17 +101,21 @@ print("το string  κωδικοποιείται μεταξύ (",sinolo_arhi,","
 def binary_searcher(start_range,end_range,starting_value,final_value):
     print("start_range",start_range)
     print("end_range",end_range)
-    print("το",(start_range+end_range)/2,"ειναι μεγαλύτερο από το ",final_value)
-
+    #print("το",(start_range+end_range)/2,"ειναι μεγαλύτερο από το ",final_value)
+    if end_range==9.5367431640625e-07:
+        pass
+     #breakpoint()
+   # print(final_value<(start_range+end_range)/2)
     if (start_range+end_range)/2>starting_value and (start_range+end_range)/2<final_value:#start_range>starting_value and end_range<final_value νιωθω οτι αυτό έχει merit αλλα δεν βάζω το χέρι μου στην φωτία 
         print("TELEIOSAAAAAAAAA")
         return -1
     elif final_value<(start_range+end_range)/2:
         print("το",(start_range+end_range)/2,"ειναι μεγαλύτερο από το ",final_value)
         return 0
-    elif start_range>(start_range+end_range)/2:
+    elif starting_value>(start_range+end_range)/2:
         print("το",(start_range+end_range)/2,"ειναι μικροτερο  από το ",final_value)
         return 1
+    print("kati_ashimo_sinebi")
 def binary_encoder(starting_value,final_value):
 
     lista_pou_kouvalaei_to_binary=[]
@@ -126,7 +130,14 @@ def binary_encoder(starting_value,final_value):
         flag=binary_searcher(start_range,end_range,starting_value,final_value)
         lista_pou_kouvalaei_to_binary.append(flag)
         middle=(start_range+end_range)/2
-       # breakpoint()
+        if flag==None:
+            
+            print("teleiosa")
+            print("start_range",start_range)
+            print("end_range",end_range)
+            exit()
+            
+      #  breakpoint()
         if flag==1:
             
             start_range=middle
