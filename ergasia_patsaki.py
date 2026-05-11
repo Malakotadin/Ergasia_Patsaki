@@ -6,6 +6,7 @@ print(type(bin))
 with open("face_bytes_real.png","wb") as f:#εδω απλα τυπωνω ολα τα bytes της φωτογραφίας και βγαινει η φωτογραφια
     f.write(bin) 
 #Αυτός ο κώδικας είναι ολίγον τι χρονοβόρος , άμα μπορουσα να βρω τρόπο να τον κάνω πιο γρήγορο θα ημουν πολύ χαρούμενος 
+str_bin = bin.__str__()
 str_bin=bin.__str__()
 decoded_bytes=bin.decode('utf-8','ignore')#είτε ignore βαλω  είτε replace τα ίδια σκατα είναι 
 hex_bin=bin.hex()
