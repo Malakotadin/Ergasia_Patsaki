@@ -1,10 +1,11 @@
 import time
+from mpmath import mp
 f = open('/home/meow/pytohn_codes/ergasia_patsaki/ff6.jpg','rb')
 bin = f.read()
 f.close()
 #print(bin)
 flag=0
-
+mp.dps=1
 hex_bin=bin.hex()#μετατροπή σε hex
 print(type(hex_bin))
 arithmos_bit=len(hex_bin)
@@ -47,19 +48,21 @@ lista_sinolon=[]
 descending_ordered_dictionary=studpid_sort_des(dictionary_foron)
 for key in descending_ordered_dictionary:
     lista_pososton.append(descending_ordered_dictionary[key]*100/arithmos_bit)
-    lista_sinolon.append(descending_ordered_dictionary[key]/arithmos_bit)
+
+    lista_sinolon.append(mp.mpf(descending_ordered_dictionary[key]/arithmos_bit))
     lista_xarakthra.append(key)
 print(lista_sinolon)
 print(lista_pososton)#ποσο τις 100 φορές εμφανίζεται αυτός ο χαρακτήρα ς
 print(lista_xarakthra)#ταξινομημενη btw
 #μαγευτίκα αυτός ο κώδικας δουλεύει αρκετλα καλά , το sorting δεν είναι γρήγορο αλλά δεν με νοιάζει να το κάνει πιο γρήγορο sort κάποιος άλλος
-#έστω οτι έχω τους πίνακες ποσοστών και χαρακτήρων και θέλω να κάνω encode την λέξη faggacab
+#έστω οτι έχω τους πίνακες ποσοστών και χαρακτήρων και θέλω να κάνω encode την λέξη fab
 
 for i in range(0,len(lista_sinolon)):
     if i==0:
         continue
     lista_sinolon[i]=lista_sinolon[i]+lista_sinolon[i-1]
 #εδω πέρα αλλά και γενικότερα η υλοποίηση σηκώνει πολύ optimization
+arhiki_lista_sinolon=lista_sinolon                                    
 print(lista_sinolon)                     
 def letter_to_be_encoded(lista_sinolon,gramma):
     thessi_grammatos=0
@@ -83,22 +86,29 @@ def letter_to_be_encoded(lista_sinolon,gramma):
         temp_epistrofhs1=lista_sinolon[thessi_grammatos-1]
     kainourgia_lista_sinolon=[sinolo*lista_sinolon[thessi_grammatos]for sinolo in lista_sinolon]
     print(kainourgia_lista_sinolon)
-    print("ο χαρακτήρας ",gramma,"βρισκεται μεταξτων τιμών ",temp_epistrofhs1,"kai",lista_sinolon[thessi_grammatos])
+    print("ο χαρακτήρας ",gramma,"βρισκεται μεταξτων τιμών ",mp.mpf(temp_epistrofhs1),"kai",mp.mpf(lista_sinolon[thessi_grammatos]))
+    
     return kainourgia_lista_sinolon,temp_epistrofhs1,lista_sinolon[thessi_grammatos]
 
 #letter_to_be_encoded(lista_sinolon,"f")
 #παμε να χτίσουμε την συναρτησούλα μας και ίσως να αρχίσουμε να δουλεύουμε μερικές βελτισοτποιήσεις γιατι ο υπολογιστης μου είναι αργος
-#εστω string acab
-demo_string="acab"
+#εστω string acc
+demo_string=hex_bin
+counter_foron=0
 for char in demo_string:
+    counter_foron=counter_foron+1
+    print("έχω ελλεγξει ",counter_foron,"χαρακτηρες")
+    #if counter_foron >300000:
+     #   breakpoint()
     lista_sinolon,sinolo_arhi,sinolo_telos=letter_to_be_encoded(lista_sinolon,char)#για παραδειγμά οι δύο βοηθηθτικες μεταβλητές στα σύνολα , δεν χρείαζεται να καταχωρούνται κάθε φορά (ίσα ίσα καλύτερα να βάλω να μην καταχωρουνται τόσες φορές)
-
+    
 
 print("το string  κωδικοποιείται μεταξύ (",sinolo_arhi,",",sinolo_telos,")")#εβαλα κάτι τιμές , και βγαζει ωραία αποτελεσματα μένει να δούμε άμα μπορω να τα αποκωδικοποιήσω
 #Έστω οτι τώρα κάνω την decoded  συνάρτηση 
 #βασικά δεν έχω τελείωσει με το encoding ακόμα 
 #exit()
 def binary_searcher(start_range,end_range,starting_value,final_value):
+    
     print("start_range",start_range)
     print("end_range",end_range)
     #print("το",(start_range+end_range)/2,"ειναι μεγαλύτερο από το ",final_value)
@@ -117,10 +127,14 @@ def binary_searcher(start_range,end_range,starting_value,final_value):
         return 1
     print("kati_ashimo_sinebi")
 def binary_encoder(starting_value,final_value):
-
+    starting_value=starting_value.mpf()
+    final_value=final_value.mpf()
     lista_pou_kouvalaei_to_binary=[]
     start_range=0
     end_range=1 
+    start_range=start_range.mpf()
+    end_range=end_range.mpf()
+
     flag=2
     
     while(flag!=-1):
@@ -153,8 +167,14 @@ def binary_encoder(starting_value,final_value):
     return lista_pou_kouvalaei_to_binary       
 
 
-print(binary_encoder(sinolo_arhi,sinolo_telos))
+lista_binary=binary_encoder(sinolo_arhi,sinolo_telos)# εστω στο υποθετικό σενάριο οτι αυτό το encoding είναι καλό 
+lista_binary.pop()
+print(lista_binary)
+print(len(lista_binary))
+def binary_decoder(lista_binary,arhiki_lista_sinolon):
+    pass
     
+
     
 
 
