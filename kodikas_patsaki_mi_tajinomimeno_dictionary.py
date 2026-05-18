@@ -1,5 +1,8 @@
 import time
 from mpmath import mp
+import sys
+sys.setrecursionlimit(10**9)
+#τι κιαν δεν ταξινομουσα το dictionary , πολυ μικρο κερδος ,αλλα θελω να ειμαι αριστος
 f = open('/home/meow/pytohn_codes/ergasia_patsaki/ff6.jpg','rb')
 bin = f.read()
 f.close()
@@ -11,7 +14,13 @@ print(type(hex_bin))
 arithmos_bit=len(hex_bin)
 print(arithmos_bit)
 dictionary_foron={}
-hex_bin="1234578123ababbcbadffdaddff612832816314028374"
+hex_bin="0a1b2c3d4e5f6789"
+xarakthres=["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"]
+
+
+#d = {a:b for a,b in enumerate(list)}
+
+dictionary_foron={"0": 0,"1": 0,"2": 0,"3": 0,"4": 0,"5": 0,"6": 0,"7": 0,"8": 0,"9": 0,"a": 0,"b": 0,"c": 0,"d": 0,"e": 0,"f": 0}
 for char in hex_bin:
     flag=0
     for key in dictionary_foron:
@@ -46,7 +55,7 @@ def studpid_sort_des(dictionary_foron):
 
     return descending_ordered_dictionary
 lista_sinolon=[]
-descending_ordered_dictionary=studpid_sort_des(dictionary_foron)
+descending_ordered_dictionary=dictionary_foron
 for key in descending_ordered_dictionary:
     lista_pososton.append(descending_ordered_dictionary[key]*100/arithmos_bit)
 
@@ -64,7 +73,8 @@ for i in range(0,len(lista_sinolon)):
     lista_sinolon[i]=lista_sinolon[i]+lista_sinolon[i-1]
 #εδω πέρα αλλά και γενικότερα η υλοποίηση σηκώνει πολύ optimization
 arhiki_lista_sinolon=lista_sinolon                                    
-print(lista_sinolon)                     
+print(lista_sinolon)  
+#exit()                   
 def letter_to_be_encoded(lista_sinolon,gramma):
     thessi_grammatos=0
     for i in range(0,len(lista_xarakthra)):
@@ -128,13 +138,13 @@ def binary_searcher(start_range,end_range,starting_value,final_value):
         return 1
     print("kati_ashimo_sinebi")
 def binary_encoder(starting_value,final_value):
-    starting_value=starting_value.mpf()
-    final_value=final_value.mpf()
+    #starting_value=starting_value.mpf()
+    #final_value=final_value.mpf()
     lista_pou_kouvalaei_to_binary=[]
     start_range=0
     end_range=1 
-    start_range=start_range.mpf()
-    end_range=end_range.mpf()
+    start_range=mp.mpf(start_range)
+    end_range=mp.mpf(end_range)
 
     flag=2
     
@@ -167,12 +177,15 @@ def binary_encoder(starting_value,final_value):
     
     return lista_pou_kouvalaei_to_binary       
 
-
+sinolo_arhi=mp.mpf(sinolo_arhi)
+sinolo_telos=mp.mpf(sinolo_telos)
 lista_binary=binary_encoder(sinolo_arhi,sinolo_telos)# εστω στο υποθετικό σενάριο οτι αυτό το encoding είναι καλό 
 lista_binary.pop()
 print(lista_binary)
 print(len(lista_binary))
-string_binary=lista_binary.join()
+#πρεπει να γινει str ομως
+lista_binary=list(map(str,lista_binary))
+string_binary="".join(lista_binary)
 def reverse_binary_search(binary,start,end):
     print(binary)
     middle=(start+end)/2
@@ -191,10 +204,29 @@ def reverse_binary_search(binary,start,end):
 def binary_decoder(string_binary,arhiki_lista_sinolon):
     start=0
     end=1
-    timoula=reverse_binary_search(string_binary,start,end)
+    return mp.mpf((reverse_binary_search(string_binary,start,end)))
 
 
+def decoder_timoulas(timoula,sinola,cap,simboloseira,xarakthres):
+    if cap==0:
+        return simboloseira
+    cap=cap-1
+    for i in range(len(sinola)):
+        print(i)
+        if timoula<sinola[i]:
+           
 
+            simboloseira=simboloseira+xarakthres[i]
+            
+            print(simboloseira)
+            return (decoder_timoulas(timoula,[rangie*sinola[i]for rangie in sinola],cap,simboloseira,xarakthres))#κανουμε και τον μαγκα δηθεν , ακομα δεν μου αρεσει το list comprehension αναρωτιεμαι αμα θα το συμπαθησω ποτε
+    return simboloseira
+
+
+timoula=binary_decoder(string_binary,arhiki_lista_sinolon)
+print(timoula)
+print(arhiki_lista_sinolon)
+print(decoder_timoulas(timoula,arhiki_lista_sinolon,len(demo_string),"",xarakthres))
 
  
 

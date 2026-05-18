@@ -1,17 +1,19 @@
 import time
 from mpmath import mp
+import numpy as np
+import threading
 f = open('/home/meow/pytohn_codes/ergasia_patsaki/ff6.jpg','rb')
 bin = f.read()
 f.close()
 #print(bin)
 flag=0
-mp.dps=1
+
+#mp.dps=1
 hex_bin=bin.hex()#μετατροπή σε hex
 print(type(hex_bin))
 arithmos_bit=len(hex_bin)
 print(arithmos_bit)
 dictionary_foron={}
-hex_bin="1234578123ababbcbadffdaddff612832816314028374"
 for char in hex_bin:
     flag=0
     for key in dictionary_foron:
@@ -27,8 +29,15 @@ for char in hex_bin:
 print(dictionary_foron)
 lista_pososton=[]
 lista_xarakthra=[]
-#descending_ordered_dictionary=dict(sorted(dictionary_foron.items(),key=lamda item: item[1],reverse=True))#καλα επειδη βαριέμαι φριχτά να ακολουθήσω το geeks for geeks απλα θα χάσω 10 λεπτά απο την ζωη μου να κάνω το sort monos mou
 
+#descending_ordered_dictionary=dict(sorted(dictionary_foron.items(),key=lamda item: item[1],reverse=True))#καλα επειδη βαριέμαι φριχτά να ακολουθήσω το geeks for geeks απλα θα χάσω 10 λεπτά απο την ζωη μου να κάνω το sort monos mou
+def kommataki_kodikopoioishs(protoi_128_harakthres,arhiki_lista_sinolon,lista_apotelesmaton,deiktis):
+    lista_sinolon=arhiki_lista_sinolon
+    for char in protoi_128_harakthres:
+      ##  print("έχω ελλεγξει ",a,"χαρακτηρες")
+      #  a=a+1
+        lista_sinolon,lista_apotelesmaton[deiktis],lista_apotelesmaton[deiktis+1]=letter_to_be_encoded(lista_sinolon,char)#εδω περα θα μπορουσε να πειστρεφει και την ανανεωμενη λιστα συνολων αλλα δεν νομιζω πως χρειαζεται να επιστρεφεται καθε φορα
+   # breakpoint()
 def studpid_sort_des(dictionary_foron):
     descending_ordered_dictionary={}
     for i in range(0,len(dictionary_foron)):
@@ -53,6 +62,8 @@ for key in descending_ordered_dictionary:
     lista_sinolon.append(mp.mpf(descending_ordered_dictionary[key]/arithmos_bit))
     lista_xarakthra.append(key)
 print(lista_sinolon)
+
+#breakpoint()
 print(lista_pososton)#ποσο τις 100 φορές εμφανίζεται αυτός ο χαρακτήρα ς
 print(lista_xarakthra)#ταξινομημενη btw
 #μαγευτίκα αυτός ο κώδικας δουλεύει αρκετλα καλά , το sorting δεν είναι γρήγορο αλλά δεν με νοιάζει να το κάνει πιο γρήγορο sort κάποιος άλλος
@@ -62,9 +73,12 @@ for i in range(0,len(lista_sinolon)):
     if i==0:
         continue
     lista_sinolon[i]=lista_sinolon[i]+lista_sinolon[i-1]
+
+#lista_sinolon=set(lista_sinolon) #μια ιδέα θα ήταν να κάνω τα πάντα sets αλλα είναι unordered οποιος είναι γενναιος αναμεσά σας ας το προσπαθήσει ( ή np arrays στις πολλες πράξεις )
 #εδω πέρα αλλά και γενικότερα η υλοποίηση σηκώνει πολύ optimization
 arhiki_lista_sinolon=lista_sinolon                                    
-print(lista_sinolon)                     
+print(lista_sinolon)         
+#breakpoint()        
 def letter_to_be_encoded(lista_sinolon,gramma):
     thessi_grammatos=0
     for i in range(0,len(lista_xarakthra)):
@@ -85,7 +99,10 @@ def letter_to_be_encoded(lista_sinolon,gramma):
         temp_epistrofhs1=0
     else:
         temp_epistrofhs1=lista_sinolon[thessi_grammatos-1]
+    
+    print(type(lista_sinolon))
     kainourgia_lista_sinolon=[sinolo*lista_sinolon[thessi_grammatos]for sinolo in lista_sinolon]
+    #kainourgia_lista_sinolon=lista_sinolon*np.array(lista_sinolon[thessi_grammatos])#η εδω πέρα προσπάθεια στην βελτιστοποιηση μου κάνει τον κωδικα να τρέχει 10 φορες πιο αργα
     print(kainourgia_lista_sinolon)
     print("ο χαρακτήρας ",gramma,"βρισκεται μεταξτων τιμών ",mp.mpf(temp_epistrofhs1),"kai",mp.mpf(lista_sinolon[thessi_grammatos]))
     
@@ -94,8 +111,33 @@ def letter_to_be_encoded(lista_sinolon,gramma):
 #letter_to_be_encoded(lista_sinolon,"f")
 #παμε να χτίσουμε την συναρτησούλα μας και ίσως να αρχίσουμε να δουλεύουμε μερικές βελτισοτποιήσεις γιατι ο υπολογιστης μου είναι αργος
 #εστω string acc
-demo_string=hex_bin
+start=time.time()
+#demo_string="ca123423abc2312973982173192837023a123423abc2312973982173192837023982130982109382130982192830219384387983babcbdbdbcbbdbababcdbcbdbcdbbabcdbcdbbdbacbadbcbd1a123423abc2312973982173192837023982130982183749817283dff"
+demo_string=hex_bin[:100000]
+print(len(demo_string))
 counter_foron=0
+splicing_counter=0
+lista_apothikeusis_ton_kommatakion_to_be_encoded=[0]*len(demo_string)
+while(splicing_counter!=-1):
+    #breakpoint()
+    if splicing_counter+128>len(demo_string):   
+      #  breakpoint()
+        threading.Thread(None,kommataki_kodikopoioishs(demo_string[splicing_counter:len(demo_string)],arhiki_lista_sinolon,lista_apothikeusis_ton_kommatakion_to_be_encoded,counter_foron))
+        splicing_counter=-1
+    else:
+       # breakpoint()
+        threading.Thread(None,kommataki_kodikopoioishs(demo_string[splicing_counter:splicing_counter+128],arhiki_lista_sinolon,lista_apothikeusis_ton_kommatakion_to_be_encoded,counter_foron))
+        splicing_counter=splicing_counter+128
+    
+    counter_foron=counter_foron+2
+    print("έχω ελλεγξει ",counter_foron/2,"χαρακτηρες")
+    print(splicing_counter)
+    
+
+end=time.time()
+print("διηρκησα τοσα δευτερολεπτα",end-start)
+exit()
+
 for char in demo_string:
     counter_foron=counter_foron+1
     print("έχω ελλεγξει ",counter_foron,"χαρακτηρες")
@@ -103,11 +145,14 @@ for char in demo_string:
      #   breakpoint()
     lista_sinolon,sinolo_arhi,sinolo_telos=letter_to_be_encoded(lista_sinolon,char)#για παραδειγμά οι δύο βοηθηθτικες μεταβλητές στα σύνολα , δεν χρείαζεται να καταχωρούνται κάθε φορά (ίσα ίσα καλύτερα να βάλω να μην καταχωρουνται τόσες φορές)
     
-
+print(len(demo_string))#θα χωρισω σε καθε 128 bytes
 print("το string  κωδικοποιείται μεταξύ (",sinolo_arhi,",",sinolo_telos,")")#εβαλα κάτι τιμές , και βγαζει ωραία αποτελεσματα μένει να δούμε άμα μπορω να τα αποκωδικοποιήσω
 #Έστω οτι τώρα κάνω την decoded  συνάρτηση 
 #βασικά δεν έχω τελείωσει με το encoding ακόμα 
 #exit()
+end=time.time()
+print("διηρκησα τοσα δευτερολεπτα",end-start)
+
 def binary_searcher(start_range,end_range,starting_value,final_value):
     
     print("start_range",start_range)
@@ -128,13 +173,13 @@ def binary_searcher(start_range,end_range,starting_value,final_value):
         return 1
     print("kati_ashimo_sinebi")
 def binary_encoder(starting_value,final_value):
-    starting_value=starting_value.mpf()
-    final_value=final_value.mpf()
+   # starting_value=mp.mpf(starting_value)
+  #  final_value=final_value.mpf()
     lista_pou_kouvalaei_to_binary=[]
     start_range=0
     end_range=1 
-    start_range=start_range.mpf()
-    end_range=end_range.mpf()
+    start_range=mp.mpf(start_range)
+    end_range=mp.mpf(end_range)
 
     flag=2
     
@@ -167,42 +212,17 @@ def binary_encoder(starting_value,final_value):
     
     return lista_pou_kouvalaei_to_binary       
 
-
+sinolo_arhi=mp.mpf(sinolo_arhi)
+sinolo_telos=mp.mpf(sinolo_telos)
 lista_binary=binary_encoder(sinolo_arhi,sinolo_telos)# εστω στο υποθετικό σενάριο οτι αυτό το encoding είναι καλό 
 lista_binary.pop()
 print(lista_binary)
 print(len(lista_binary))
-string_binary=lista_binary.join()
-def reverse_binary_search(binary,start,end):
-    print(binary)
-    middle=(start+end)/2
-    if binary=="":
-        return middle
-    
-    
-    char=binary[0]
-    if char==str(0):
-        start=middle
-    else:
-        end=middle
-    print(middle)
-   # print(binary)
-    return(reverse_binary_search(binary[1:],start,end))
-def binary_decoder(string_binary,arhiki_lista_sinolon):
-    start=0
-    end=1
-    timoula=reverse_binary_search(string_binary,start,end)
-
-
-
-
- 
-
-    
+def binary_decoder(lista_binary,arhiki_lista_sinolon):
+    pass
     
 
     
-
 
 
 #counter=0
