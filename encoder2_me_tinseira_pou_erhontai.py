@@ -9,7 +9,8 @@ flag=0
 #hex_bin=bin.hex()#μετατροπή σε hex
 #print(type(hex_bin))
 #arithmos_bit=len(hex_bin)
-demo_string="ffffdddaccdddddcff12335abcdad" 
+demo_string=bin.hex()
+demo_string=demo_string[:15]
 arithmos_bit=len(demo_string)
 def string_yparhei(dictionary_xarakthron_kai_pososton,char):
     for key in dictionary_xarakthron_kai_pososton:
@@ -59,9 +60,10 @@ def range_splitter(dictionary_xarakthron_kai_pososton,gramma):
     #lista_temp_posoton=[]
    # for i in range(0,metritis_monadikon_xarakthron):
    #     lista_temp_posoton.append()
-   temp=dictionary_xarakthron_kai_pososton[gramma]
-   for key in dictionary_xarakthron_kai_pososton:
-    dictionary_xarakthron_kai_pososton[key]=dictionary_xarakthron_kai_pososton[key]*temp
+    temp=dictionary_xarakthron_kai_pososton[gramma]
+    for key in dictionary_xarakthron_kai_pososton:
+       # breakpoint()
+        dictionary_xarakthron_kai_pososton[key]=dictionary_xarakthron_kai_pososton[key]*temp
     return dictionary_xarakthron_kai_pososton
 
 
@@ -70,9 +72,12 @@ def range_splitter(dictionary_xarakthron_kai_pososton,gramma):
 def character_encoder(char,dictionary_xarakthron_kai_pososton,start_range,end_range):
     #breakpoint()
     end_range=dictionary_xarakthron_kai_pososton[char]
-    if char!= lista_monadikon_xarakthron[0]:#ελεγχος για να μην μου βαζει το τελικο στοιχειο σαν end range
+    if char== lista_monadikon_xarakthron[0]and start_range==0:#ελεγχος για να μην μου βαζει το τελικο στοιχειο σαν end range
+        print("mpika_peristash")    
+    else:
         start_range=dictionary_xarakthron_kai_pososton[lista_monadikon_xarakthron[lista_monadikon_xarakthron.index(char)-1]]
     dictionary_xarakthron_kai_pososton=range_splitter(dictionary_xarakthron_kai_pososton,char)
+    print(char)#νιωθω πως μειώνω μόνο την πρώτη τιμή του συνολού
     print("αρχικη τιμη ",start_range)
     print("τελικη τιμη",end_range)
     print(dictionary_xarakthron_kai_pososton)
