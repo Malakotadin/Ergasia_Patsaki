@@ -30,7 +30,7 @@ def diavasma_string(string):
         
     return dictionary_xarakthron_kai_pososton 
        
-           
+
 
 #νιωθω αυτη η υλοποίηση είναι πολύ καλή 
 
@@ -54,13 +54,16 @@ end_range=1
 start_range=mp.mpf(start_range)
 end_range=mp.mpf(end_range)
 print(lista_arhikon_pososton)
-
+lista_arhikon_pososton=[timi/arithmos_bit for timi in lista_arhikon_pososton]
 def range_splitter(dictionary_xarakthron_kai_pososton,gramma):
     #apostash=end_range-start_range
     #lista_temp_posoton=[]
    # for i in range(0,metritis_monadikon_xarakthron):
-   #     lista_temp_posoton.append()
-    temp=dictionary_xarakthron_kai_pososton[gramma]
+   # lista_temp_posoton.append()
+   # breakpoint()
+    thessi_grammatos=lista_monadikon_xarakthron.index(gramma)
+    temp=lista_arhikon_pososton[thessi_grammatos]
+    #temp=dictionary_xarakthron_kai_pososton[gramma]
     for key in dictionary_xarakthron_kai_pososton:
        # breakpoint()
         dictionary_xarakthron_kai_pososton[key]=dictionary_xarakthron_kai_pososton[key]*temp
@@ -88,5 +91,39 @@ for key in dictionary_xarakthron_kai_pososton:
 for char in demo_string:
     
     dictionary_xarakthron_kai_pososton,start_range,end_range=character_encoder(char,dictionary_xarakthron_kai_pososton,start_range,end_range)
+# εδω δουλευει καλα θελω να πιστευω 
 
+timoula=(start_range+end_range)/2
+print(timoula)
 
+def iterator(timoula,arithmos_bit,arhiki_lista_sinolon,start,end,decoded_string):
+    if arithmos_bit==0:
+        return decoded_string
+    for i in range(0,len(arhiki_lista_sinolon)):
+       # breakpoint()
+        if timoula<arhiki_lista_sinolon[0]: #and start==0:# εδω περα ισως να το θελει αυτο , θα το δουμε i guess
+            end=arhiki_lista_sinolon[0]
+            decoded_string=decoded_string+lista_monadikon_xarakthron[0]
+            return iterator(timoula,arithmos_bit-1,[item*lista_arhikon_pososton[0] for item in arhiki_lista_sinolon],start,end,decoded_string)
+        elif timoula<arhiki_lista_sinolon[i]:
+            print("mpika_elif")
+            start=arhiki_lista_sinolon[i-1]
+            end=arhiki_lista_sinolon[i]
+
+            decoded_string=decoded_string+lista_monadikon_xarakthron[i]
+            print(decoded_string)
+            return(timoula,arithmos_bit-1,[item*lista_arhikon_pososton[i] for item in arhiki_lista_sinolon],start,end,decoded_string)
+            
+
+        
+
+def decoder(timoula,arithmos_bit,arhiki_lista_sinolon):
+    start=0
+    end=1
+    decoded_string=""
+    decoded_string=iterator(timoula,arithmos_bit,arhiki_lista_sinolon,start,end,decoded_string)
+    print("bgika_decoder")
+    return decoded_string
+
+print(decoder(timoula,arithmos_bit,lista_olikon_poston))
+print(demo_string)
