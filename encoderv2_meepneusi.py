@@ -1,9 +1,10 @@
-import mpmath as mp
+from mpmath import mp,mpf
 f= open('/home/meow/pytohn_codes/ergasia_patsaki/ff6.jpg','rb')
 bin = f.read()
 f.close()
 #print(bin)
 flag=0
+mp.dps=30
 
 #mp.dps=1
 #hex_bin=bin.hex()#μετατροπή σε hex
@@ -132,13 +133,15 @@ def decoderv2(timoula,arithmos_bit,lista_arhikon_pososton):
             kato_orio=value[0]
             ano_orio=value[1]
            # print((timoula >= kato_orio) and (timoula <= ano_orio))
+            print(float(kato_orio)==float(timoula))
+            print(float(ano_orio)==float(timoula))
             print("".join(teliko_string))
-            print(type(timoula),type(kato_orio))
+            print(timoula,kato_orio)
            # breakpoint()
             print("xamilo orio",kato_orio)
             print("timoula",timoula)
             print("psilo",ano_orio)
-            if (timoula > kato_orio) and (timoula<ano_orio):
+            if (timoula >= kato_orio) and (timoula<=ano_orio):
                 
                 torino_kato_orio=kato_orio
                 torino_ano_orio=ano_orio
