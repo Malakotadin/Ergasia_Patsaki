@@ -4,12 +4,13 @@ import time,sys
 import pickle
 from encode_to_files3 import encoder
 from decode_from_file_and_append_to_func import decoder
+
 image_path='ff7.webp'
 #bytes.hex
 f= open(image_path,'rb')
 bint = f.read()
 f.close()
-
+arithmos_bit=256
 mp.dps=1024#γαμω γαμω γαμω γαμω εχασα 20 χρονια απο το προσδοκιμω ζωης μου και απέκτησα άλλο ένα φαλακρό σημείο στο κεφάλι μου για αυτή την γραμμή κώδικα
 demo_string=bint.hex()
 splicing_counter=0
@@ -56,6 +57,7 @@ while(True):
     splicing_counter+=256
     print(splicing_counter)
     
+
 #exit()
 endno=noumero
 noumero=0

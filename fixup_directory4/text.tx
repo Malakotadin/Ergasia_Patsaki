@@ -1,0 +1,17 @@
+apothikeutiki_lista=[arithmos_bit,tag_ls,ls_pososta_ls,ls_xarakthres_ls,noumero,diafora]
+file_to_send=open("file_to_send",'wb')
+pickle.dump(apothikeutiki_lista,file_to_send)
+file_to_send.close()
+file_to_send=open("file_to_send",'rb')
+apothikeutiki_lista2=pickle.load(file_to_send)
+
+file_to_send.close()
+arithmos_bit=apothikeutiki_lista2[0]
+tag_ls=apothikeutiki_lista2[1]
+ls_pososta_ls=apothikeutiki_lista2[2]
+ls_xarakthres_ls=apothikeutiki_lista2[3]
+noumero=apothikeutiki_lista2[4]
+diafora=apothikeutiki_lista2[5]
+print(apothikeutiki_lista==apothikeutiki_lista2)
+for i in range(0,len(apothikeutiki_lista)):
+    print(apothikeutiki_lista[i]==apothikeutiki_lista2[i])

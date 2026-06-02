@@ -2,17 +2,18 @@ import subprocess
 from mpmath import mp,mpf
 import time,sys
 import pickle
-from encode_to_files3 import encoder
-from decode_from_file_and_append_to_func import decoder
+from parallel_encode import encoder
+from parallel_decode import decoder
+import threading
 image_path='ff7.webp'
 #bytes.hex
 f= open(image_path,'rb')
 bint = f.read()
 f.close()
-
 mp.dps=1024#γαμω γαμω γαμω γαμω εχασα 20 χρονια απο το προσδοκιμω ζωης μου και απέκτησα άλλο ένα φαλακρό σημείο στο κεφάλι μου για αυτή την γραμμή κώδικα
 demo_string=bint.hex()
 splicing_counter=0
+arithmos_bit=256
 arg=demo_string[:256]
 noumero=0
 strnoumero=str(noumero)
@@ -30,10 +31,9 @@ while(True):
         temp=arg
         diafora=len(temp)
         #timoula,lista_arhikon_pososton,lista_monadikon_xarakthron=subprocess.check_output(['python','encode_to_files3.py',arg,strnoumero])
-        timoula,lista_arhikon_pososton,lista_monadikon_xarakthron=encoder(arg)
-        ls_xarakthres_ls[noumero]=lista_monadikon_xarakthron
-        ls_pososta_ls[noumero]=lista_arhikon_pososton
-        tag_ls[noumero]=timoula
+        encode=threading.Thread(None,encoder(arg,tag_ls,ls_pososta_ls,ls_xarakthres_ls,noumero))
+      #  timoula,lista_arhikon_pososton,lista_monadikon_xarakthron=threading.Thread(target=encoder,args=arg)
+        
         
         break
     else: 
@@ -41,38 +41,69 @@ while(True):
       #  saving_list=subprocess.check_output(['python','encode_to_files3.py',arg,strnoumero])
         #timoula=subprocess.check_output(['python','encode_to_files3.py',arg,strnoumero])
        # breakpoint()
-        timoula,lista_arhikon_pososton,lista_monadikon_xarakthron=encoder(arg)
+        #timoula,lista_arhikon_pososton,lista_monadikon_xarakthron=encoder(arg)
         #saving_list
        # print(saving_list)
       #  print(lista_arhikon_pososton)
      #  timoula=timoula.decode()
        # print(timoula)
        # print(timoula)
-        ls_xarakthres_ls[noumero]=lista_monadikon_xarakthron
-        ls_pososta_ls[noumero]=lista_arhikon_pososton
-        tag_ls[noumero]=timoula
+        encode=threading.Thread(None,encoder(arg,tag_ls,ls_pososta_ls,ls_xarakthres_ls,noumero))
+       # ls_xarakthres_ls[noumero]=lista_monadikon_xarakthron
+       ## ls_pososta_ls[noumero]=lista_arhikon_pososton
+        #tag_ls[noumero]=timoula
     noumero+=1
     strnoumero=str(noumero)
     splicing_counter+=256
     print(splicing_counter)
     
-#exit()
+apothikeutiki_lista=[arithmos_bit,tag_ls,ls_pososta_ls,ls_xarakthres_ls,noumero,diafora]
+file_to_send=open("tag_ls",'wb')
+pickle.dump(tag_ls,file_to_send)
+file_to_send.close()
+file_to_send=open("file_to_send",'rb')
+apothikeutiki_lista2=pickle.load(file_to_send)
+file_to_send.close()
+print(apothikeutiki_lista2)
+breakpoint()
+exit()
+arithmos_bit=apothikeutiki_lista2[0]
+tag_ls=apothikeutiki_lista2[1]
+ls_pososta_ls=apothikeutiki_lista2[2]
+ls_xarakthres_ls=apothikeutiki_lista2[3]
+noumero=apothikeutiki_lista2[4]
+diafora=apothikeutiki_lista2[5]
+print(apothikeutiki_lista==apothikeutiki_lista2)
+for i in range(0,len(apothikeutiki_lista)):
+    for j in range(1,3):
+     try:   
+        print(apothikeutiki_lista[i][j]==apothikeutiki_lista2[i][j])
+     except:
+        print("booooom")
+exit()
 endno=noumero
 noumero=0
 strnoumero=str(noumero)
 #breakpoint()
+output_ls=len(demo_string)*[""]
 while(True):
     print(noumero)
    # print(noumero>endno)
     #subprocess.run(['python','decode_from_file_and_append_to_final.py',strnoumero])
     
     if endno==noumero:
-        decoder(tag_ls[noumero],ls_pososta_ls[noumero],ls_xarakthres_ls[noumero],diafora)
+        decode=threading.Thread(None,decoder(tag_ls[noumero],ls_pososta_ls[noumero],ls_xarakthres_ls[noumero],diafora,output_ls,noumero))
+       # decoder(tag_ls[noumero],ls_pososta_ls[noumero],ls_xarakthres_ls[noumero],diafora)
         print("teleiosa")
         break
-    decoder(tag_ls[noumero],ls_pososta_ls[noumero],ls_xarakthres_ls[noumero],256)
+    decode=threading.Thread(None,decoder(tag_ls[noumero],ls_pososta_ls[noumero],ls_xarakthres_ls[noumero],256,output_ls,noumero))
+   # decoder(tag_ls[noumero],ls_pososta_ls[noumero],ls_xarakthres_ls[noumero],256)
     noumero+=1
     strnoumero=str(noumero)
+
+fin_output="".join(output_ls)
+with open("final_try.webp","ab") as file:
+        file.write(bytes.fromhex(fin_output))
 end=time.time()
 print("διηρκησα",end-start," δευτερολεπτα")
 #subprocess.run(['python','decode_from_file_and_append_to_final.py',strnoumero])

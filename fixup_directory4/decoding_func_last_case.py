@@ -3,8 +3,8 @@ import time,sys
 import pickle
 
 
-def decoder(timoula,lista_arhikon_pososton,lista_monadikon_xarakthron,arithmos_bit):
-   
+def decoder(timoula,lista_arhikon_pososton,lista_monadikon_xarakthron):
+    arithmos_bit=256
     #id=0
     mp.dps=1024
     #breakpoint()
@@ -87,5 +87,5 @@ def decoder(timoula,lista_arhikon_pososton,lista_monadikon_xarakthron,arithmos_b
     final_output="".join(decoderv2(timoula,arithmos_bit,lista_arhikon_pososton,lista_monadikon_xarakthron))
     #print(final_output)
 
-    with open("final_try.webp","ab") as file:
+    with open("final_try.bmp","ab") as file:
         file.write(bytes.fromhex(final_output))
