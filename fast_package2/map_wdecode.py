@@ -2,17 +2,19 @@ import subprocess
 from mpmath import mp,mpf
 import time,sys
 import pickle
-from parallel_encode import encoder
+#from parallel_encode import encoder
 from maped_decode import decoder
 import threading
 from p_tqdm import p_map
-mp.dps=1030
-file_to_send=open("tag_ls",'rb')
-tag_ls=pickle.load(file_to_send)
-file_to_send.close()
 file_to_send=open("arithmos_bit",'rb')
 arithmos_bit=pickle.load(file_to_send)
 file_to_send.close()
+mp.dps=2*arithmos_bit
+
+file_to_send=open("tag_ls",'rb')
+tag_ls=pickle.load(file_to_send)
+file_to_send.close()
+
 file_to_send=open("ls_pososta_ls",'rb')
 ls_pososta_ls=pickle.load(file_to_send)
 file_to_send.close()
@@ -45,7 +47,7 @@ strnoumero=str(noumero)
 output_ls=len(tag_ls)*[""]
 #b##reakpoint()
 lista_dedomenon=[]
-breakpoint()
+#breakpoint()
 for i in range(0,len(tag_ls)):
    # print(i)
     #if i+1==len(tag_ls):
@@ -59,9 +61,9 @@ output_ls=p_map(decoder,lista_dedomenon)
 
 print("egina")
 fin_output="".join(output_ls)
-breakpoint()
+#breakpoint()
 fin_output=fin_output[:len(fin_output)-(arithmos_bit-diafora)]
-with open("final_try.bmp","wb") as file:
+with open("new_ff6.jpg","wb") as file:
         file.write(bytes.fromhex(fin_output))
 #end=time.time()
 #print("διηρκησα",end-start," δευτερολεπτα")

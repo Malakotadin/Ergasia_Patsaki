@@ -3,30 +3,36 @@ from mpmath import mp,mpf,workdps,workprec,autoprec
 import time,sys
 import pickle
 from mapped_encode import encoder
-from parallel_decode import decoder
+#from parallel_decode import decoder
 import threading
+import math
 from p_tqdm import p_map
-image_path='gimp.bmp'
+image_path='ff6.jpg'
 #bytes.hex
 f= open(image_path,'rb')
 bint = f.read()
 f.close()
-mp.dps=1030#γαμω γαμω γαμω γαμω εχασα 20 χρονια απο το προσδοκιμω ζωης μου και απέκτησα άλλο ένα φαλακρό σημείο στο κεφάλι μου για αυτή την γραμμή κώδικα
+arithmos_bit=4096
+arithmos_bit=arithmos_bit*2#1 it psc ο υπολογιστης μου δεν μπορει αλλο 
+arithmos_bit=arithmos_bit*2# αντιο γλυκε κοσμε , αντιο ψημενη σιλικονη μου , ευχομαι τουλαχιστον να παρουμε 10
+arithmos_bit=arithmos_bit*2#ζηλευω αυτους τους intel core με τους 20 πυρηνες , σαν τον ικαρο πεταω ολο και πιο κοντα στον ηλιο
+#νιωθω πως ο υπολογιστης μου θα ανατιναχτει σε αυτο το σημειο
+mp.dps=math.ceil(arithmos_bit*1.085)#γαμω γαμω γαμω γαμω εχασα 20 χρονια απο το προσδοκιμω ζωης μου και απέκτησα άλλο ένα φαλακρό σημείο στο κεφάλι μου για αυτή την γραμμή κώδικα
 demo_string=bint.hex()
 splicing_counter=0
-arg=demo_string[:256]
+#arg=demo_string[:256]
 noumero=0
 strnoumero=str(noumero)
-print(arg)
+#print(arg)
 lista_kopsimatos=[]
 
 #exit()
 infinite_mhden=mp.mpf(0.0)
-tag_ls=len(demo_string)*[infinite_mhden]
+tag_ls=len(demo_string)*[0]
 ls_pososta_ls=[0]*len(demo_string)
 ls_xarakthres_ls=[0]*len(demo_string)
 #breakpoint()
-arithmos_bit=256
+#arithmos_bit=256
 start=time.time()
 while(True):
     if splicing_counter+arithmos_bit>len(demo_string):
@@ -118,7 +124,7 @@ def selfer(value):
 #clean=threading.Thread(None,cleaner(tag_ls))#η  μαλακια ειναι οτι τα σωζο σε πολυ μεγαλο precisoin και αυτο μου τρώει τοσο χώρο, what do i do  ? 
 #clean=threading.Thread(None,cleaner(ls_pososta_ls))
 #clean=threading.Thread(None,cleaner(ls_xarakthres_ls))
-breakpoint()
+#breakpoint()
 #tag_ls=p_map(autoprec,lista_apothikeusis)
 #breakpoint()
 #ls_pososta_ls=p_map(autoprec,lista_apothikeusis)
@@ -130,17 +136,17 @@ print("δεν μπηκαα")
 with workdps(500):
   print("μπικααααα)")
   print(mp.dps)
-  tag_ls=p_map(selfer,lista_apothikeusis)
+ # tag_ls=p_map(selfer,lista_apothikeusis)
   #breakpoint()
   #ls_pososta_ls=p_map(selfer,lista_apothikeusis)
   #ls_xarakthres_ls=p_map(selfer,lista_apothikeusis)
   print(mp.dps)
-  breakpoint()
+  #breakpoint()
 
   file_to_send=open("tag_ls",'wb')
   pickle.dump(tag_ls,file_to_send)
   file_to_send.close()
-  exit()
+  #exit()
   file_to_send=open("arithmos_bit",'wb')
   pickle.dump(arithmos_bit,file_to_send)
   file_to_send.close()

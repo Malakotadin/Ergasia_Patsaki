@@ -10,7 +10,7 @@ def decoder(lista_dedomenon):
     arithmos_bit=lista_dedomenon[3]
     #noumero=lista_dedomenon[4]
     #id=0
-    mp.dps=1030
+    #mp.dps=1030
     #breakpoint()
     #id=int(sys.argv[1])
     def olika_pososta(kato_orio,ano_orio,lista_pithanotiton):

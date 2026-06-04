@@ -14,7 +14,7 @@ flag=0
 #print(type(hex_bin))
 #arithmos_bit=len(hex_bin)
 def encoder(demo_string):
-    mp.dps=1030
+    #mp.dps=1030
     #breakpoint()
    # demo_string=sys.argv[1]
     #id=int(sys.argv[2])
