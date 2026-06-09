@@ -7,6 +7,7 @@ from mapped_encode import encoder
 import threading
 import math
 from p_tqdm import p_map
+from scipy.stats import entropy
 image_path='gimp.bmp'
 #bytes.hex
 f= open(image_path,'rb')
@@ -143,24 +144,67 @@ with workdps(500):
   print(mp.dps)
   #breakpoint()
 
-  file_to_send=open("tag_ls",'wb')
+  file_to_send=open("tag_ls2",'wb')
   pickle.dump(tag_ls,file_to_send)
   file_to_send.close()
   #exit()
-  file_to_send=open("arithmos_bit",'wb')
+  file_to_send=open("arithmos_bit2",'wb')
   pickle.dump(arithmos_bit,file_to_send)
   file_to_send.close()
-  file_to_send=open("ls_pososta_ls",'wb')
+  file_to_send=open("ls_pososta_ls2",'wb')
   pickle.dump(ls_pososta_ls,file_to_send)
   file_to_send.close()
-  file_to_send=open("ls_xarakthres_ls",'wb')
+  file_to_send=open("ls_xarakthres_ls2",'wb')
   pickle.dump(ls_xarakthres_ls,file_to_send)
   file_to_send.close()
-  file_to_send=open("noumero",'wb')
+  file_to_send=open("noumero2",'wb')
   pickle.dump(noumero,file_to_send)
   file_to_send.close()
-  file_to_send=open("diafora",'wb')
+  file_to_send=open("diafora2",'wb')
   pickle.dump(diafora,file_to_send)
   file_to_send.close()
 
-#breakpoint()
+#  απο εδω και πέρα θα δημιουργήσω το μεγάλο binary για υπολογισμούς εντροπίας , γαμώ το σπίτι μου
+with open("tag_ls2",'ab') as tag_file ,  open("arithmos_bit2",'rb') as arithmos_bit , open("ls_pososta_ls2",'rb') as ls_pososta_ls , open("ls_xarakthres_ls2",'rb') as ls_xarakthres_ls , open("noumero",'rb') as noumero,open("diafora",'rb')as diafora :
+  tag_file.write(arithmos_bit.read())
+  tag_file.write(ls_pososta_ls.read())
+  tag_file.write(ls_xarakthres_ls.read())
+  tag_file.write(noumero.read())
+  tag_file.write(diafora.read())
+ # arithmos_bit_len=len(arithmos_bit.read())
+  
+
+  #breakpoint()
+
+ls_pososta_ls
+f= open('tag_ls2','rb')
+bint = f.read()
+f.close()
+final_file=bint.hex()
+def string_yparhei(dictionary_xarakthron_kai_pososton,char):
+    for key in dictionary_xarakthron_kai_pososton:
+        if char==key:
+            dictionary_xarakthron_kai_pososton[char]=dictionary_xarakthron_kai_pososton[char] +1
+            return dictionary_xarakthron_kai_pososton
+    dictionary_xarakthron_kai_pososton[char]=1
+    return dictionary_xarakthron_kai_pososton
+
+def diavasma_string(string):
+    dictionary_xarakthron_kai_pososton={}
+    
+    
+    for char in string:
+        
+        dictionary_xarakthron_kai_pososton=string_yparhei(dictionary_xarakthron_kai_pososton,char)
+        
+    return dictionary_xarakthron_kai_pososton 
+
+dictionary_xarakthron_kai_pososton=diavasma_string(final_file)
+lista_arhikon_pososton=[]
+for key in dictionary_xarakthron_kai_pososton:
+    lista_arhikon_pososton.append(dictionary_xarakthron_kai_pososton[key])
+
+p=lista_arhikon_pososton
+ent = entropy(p, base=2)
+print("Entropy:", ent)
+breakpoint()
