@@ -1,11 +1,9 @@
 from flask import Flask,redirect, url_for, jsonify, request
+import subprocess
+import CallTest
+
 app = Flask(__name__)
 @app.route("/", methods=["GET","POST"])
-
-#def home():
-#    content = request.json
-    #return render_template("homepage.html")
-#    return content ['name']
 
 def handle_request():
     # The GET endpoint
@@ -14,22 +12,20 @@ def handle_request():
     
     # The POST endpoint
     if request.method == "POST":
-
+    
         response=request.get_json()
-        #fin_output= response.encoded_image
-        #response=request.json
-        #print(response)
+        fin_output = response.get('encoded_image', '')
 
-        #with open("output.bmp","wb") as file:
-           # file.write(bytes.fromhex(fin_output))
+        with open("output.bmp","wb") as file:
+            file.write(bytes.fromhex(fin_output))
 
-        #cap_text= response.upper()
-        #response = {'cap-text': cap_text}
+        subprocess.call(['python', 'CallTest.py'])
+   
 
         # return the response as JSON
         return jsonify(response)
     
     
 if __name__=="__main__":
-    app.run()
+    app.run(host="192.168.2.8", port="5000")
 
