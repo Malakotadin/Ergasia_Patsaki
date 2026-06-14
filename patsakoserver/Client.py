@@ -2,6 +2,9 @@ import json
 import os
 from PIL import Image
 import hashlib
+import requests
+
+headers = {'Content-type': 'application/json'}
 
 param_list=[]
 info={  
@@ -56,7 +59,7 @@ bin = f.read()
 f.close()
 hex_bin=bin.hex()
 
-info["encoded_image"]= hex_bin
+info["encoded_image"]= hex_bin[:20]
 
 #---Αλγόριθμος συμπίεσης---
 print(f"Compression Algorithm:{info['compression_algorithm']}")
@@ -99,3 +102,10 @@ with open("info.json", "w") as f:
         json.dump(info, f, indent=4)
 
 #print(info["compression_algorithm"])
+
+
+response = requests.post(url="http://localhost:5000/", json=info , headers=headers)
+print(response.text)
+
+#http://192.168.2.11:5000/
+#"http://0.0.0.0:5000/"
