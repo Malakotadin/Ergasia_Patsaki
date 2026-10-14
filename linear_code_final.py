@@ -4,8 +4,10 @@ import base64
 
 
 #codeword = ("0011")
-codeword = ("0101010011011011")*5000 # τα bits που θα παρω απο τον κωστα
-original_lenght = len(codeword)
+codeword2 = ("0101010011011011")*5000 # τα bits που θα παρω απο τον κωστα
+original_length = len(codeword2)
+codeword = codeword2
+
 
 
 
@@ -100,6 +102,7 @@ for i, chunk in enumerate(chunks):
     received = ''.join(str(int(b)) for b in received)
     encoded = base64.b64encode(received.encode("ascii")) #encode with base64
     print (f"Encoded with base64 {encoded}")
+    
    ### λγκ τα παραπανω θα μπουν στη μερια του αποστολεα               
    ### και τα παρακατω στη μερια του παραληπτη. δν ειμαι και σιγουρος ομως :)
          
@@ -107,15 +110,14 @@ for i, chunk in enumerate(chunks):
     print(f"Decoded with base64 {decoded}")
           
           
-    #print(f"Received: {decoded}") #decode with parity check matrix
+    print(f"Received: {decoded}") #decode with parity check matrix
     og = decode(decoded)
     og = ''.join(str(int(bit)) for bit in og)
-    #print(og)
     print(og == chunk)
     reconstructed += og
      
-    
-#print(reconstructed[:original_length])
+print("Final Result")
+print(reconstructed[:original_length] == codeword2)
     
     
     
