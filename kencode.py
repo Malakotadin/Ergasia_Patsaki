@@ -53,7 +53,7 @@ def add_error(codeword, percentage):
 def encode(c):                # πολλαπλασιαζμός μηνύματος(c) με generator matrix
   return vector(M, c) * G
 
-
+full = []
 for i, chunk in enumerate(chunks):
     bits = [int(b[0]) for b in chunk]
     #print(f"Before encoding {chunk}")
