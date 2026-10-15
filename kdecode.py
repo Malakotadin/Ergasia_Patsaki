@@ -65,7 +65,7 @@ def decode(r):
 reconstructed = ""
 for i, chunk in enumerate(chunks):
     bits = [int(b[0]) for b in chunk]
-    og = decode(decoded)
+    og = decode(bits)
     og = ''.join(str(int(bit)) for bit in og)
     reconstructed += og
 
