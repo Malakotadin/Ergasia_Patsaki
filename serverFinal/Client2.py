@@ -27,7 +27,7 @@ info={
 
 #Εδώ βάζουμε το όνομα του αρχείου που θέλουμε να χρησιμοποιήσουμε
 print("Enter the text file name:")
-txtfile="kamikaze girls.srt.txt" #"test2.txt"#DYamiBaraLyrics.txt"#input()
+txtfile= input()
 
 
 #---Κείμενο---
@@ -35,6 +35,7 @@ txtfile="kamikaze girls.srt.txt" #"test2.txt"#DYamiBaraLyrics.txt"#input()
 with open(txtfile, 'r') as file:
     file_content = file.read()
 
+#η μεταβλητη file_content χρησιμοποιειται πιο κατω στην ευρεση της εντροπιας 
 
 
 subprocess.call(['python', 'sumpiesh\\encode4.py'])
@@ -77,32 +78,15 @@ def arxeia(file):
     hex_bin=bin.hex()
     param_list.append(hex_bin)
 
+
 arxeia("sumpiesh\\arithmos_bit2")
-arxeia("sumpiesh\\tag_ls")
 arxeia("sumpiesh\\tag_ls2")
 arxeia("sumpiesh\\ls_pososta_ls2")
 arxeia("sumpiesh\\ls_xarakthres_ls2")
-
-print("parameters imported")
-
-'''
-def arxeia(file):
-    f = open(file,'rb')
-    bin = f.read()
-    f.close()
-    hex_bin=bin.hex()
-    param_list.append(hex_bin)
-
-arxeia("sumpiesh\\arithmos_bit2")
-arxeia("sumpiesh\\noumero2")
 arxeia("sumpiesh\\diafora2")
-arxeia("sumpiesh\\ls_pososta_ls2")
-arxeia("sumpiesh\\ls_xarakthres_ls2")
-#arxeia("sumpiesh\\arithmos_bit2")
-        
-#print(f"Parameter List:{param_list}")
+
 print("parameters imported")
-'''
+
 
 #---Errors---
 
