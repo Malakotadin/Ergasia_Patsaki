@@ -62,7 +62,6 @@ def decode(r):
 reconstructed = ""
 for i, chunk in enumerate(chunks):
     bits = [int(b[0]) for b in chunk]         
-    decoded = base64.b64decode(encoded).decode("ascii") 
     og = decode(decoded)
     og = ''.join(str(int(bit)) for bit in og)
     reconstructed += og
