@@ -62,11 +62,11 @@ for i, chunk in enumerate(chunks):
     #print(f"Codeword: {codeword}")
           
     received = add_error(codeword, 20) # add error
-    
-    received = ''.join(str(int(b)) for b in received)
-    encoded = base64.b64encode(received.encode("ascii"))
 
-breakpoint()
+    full.append(''.join(str(int(b)) for b in received))
+    
+    encoded = base64.b64encode(''.join(full).encode("ascii"))
+
 with open("codeword", "wb") as c:
     c.write(encoded)
 
